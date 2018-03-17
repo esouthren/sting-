@@ -42,5 +42,6 @@
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-xml:9.4.6.v20170531" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-api:9.4.6.v20170531" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-util:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="gtranslateapi-1.0" level="project" />
   </component>
 </module>

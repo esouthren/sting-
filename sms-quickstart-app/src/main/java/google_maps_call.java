@@ -18,7 +18,7 @@ public class google_maps_call {
                 "&mode=" + modeOfTransport +
                 "&key=" + api;
         try {
-            returnedString = http_request.make_request(request_url);
+            returnedString = http_request.make_get_request(request_url);
             //System.out.println(returnedString);
         } catch (Exception ex) {
             return "I'm lost, man:" + ex.getMessage();

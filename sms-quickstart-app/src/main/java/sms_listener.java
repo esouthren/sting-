@@ -28,7 +28,7 @@ public class sms_listener extends HttpServlet {
             String[] transport_methods = {"walking", "driving", "bicycling", "transit"};
             // Return text is the full string of the user's text message
             System.out.println(return_text);
-            String sms_split_words[] = return_text.split(" ");
+            String sms_split_words[] = return_text.split("\\+");
             if (sms_split_words[0].toLowerCase().equals("directions")) {
                 if (Arrays.asList(transport_methods).contains(sms_split_words[1].toLowerCase())) {
                     transport_method = sms_split_words[1];
@@ -49,6 +49,15 @@ public class sms_listener extends HttpServlet {
             }
             else if (sms_split_words[0].toLowerCase().equals("joke")) {
                 output_message = joke_generator.generate_joke();
+            }
+            else if (sms_split_words[0].toLowerCase().equals("translate")) {
+                String target_language = sms_split_words[1];
+                String text_to_translate = "";
+                for (int i = 2; i < sms_split_words.length; i++){
+                    text_to_translate += sms_split_words[i] + " ";
+                }
+                output_message = google_translate_call.translate(target_language, text_to_translate);
+                System.out.println(output_message);
             }
 
 
