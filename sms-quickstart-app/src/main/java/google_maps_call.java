@@ -19,7 +19,7 @@ public class google_maps_call {
                 "&key=" + api;
         try {
             returnedString = http_request.make_request(request_url);
-            System.out.println(returnedString);
+            //System.out.println(returnedString);
         } catch (Exception ex) {
             return "I'm lost, man:" + ex.getMessage();
         }
@@ -39,7 +39,7 @@ public class google_maps_call {
         for (int i=0;i<length;i++) {
             temp = (JSONObject)listOfSteps.get(i);
 
-            directionsNicelyFormatted += temp.getString("html_instructions") + "\n";
+            directionsNicelyFormatted += temp.getString("html_instructions") + ".\n";
         }
 
         // regex to remove HTML tags
