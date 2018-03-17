@@ -19,10 +19,13 @@ public class SmsApp extends HttpServlet {
 
 
         post("/sms", (req, res) -> {
-            System.out.println(req.body());
+
             String return_text = req.body();
             int start_of_body = return_text.indexOf("&Body=") + 6;
-            int end_of_body = 
+            int end_of_body = return_text.indexOf("&FromCou");
+            return_text = return_text.substring(start_of_body, end_of_body);
+
+            System.out.println(return_text);
 
             res.type("application/xml");
             Body body = new Body
