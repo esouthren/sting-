@@ -14,4 +14,5 @@ dependencies {
     compile group: "com.twilio.sdk", name: "twilio", version: "7.17.+"
     compile group: "com.sparkjava", name: "spark-core", version: "2.7.1"
     compile group: "org.slf4j", name: "slf4j-simple", version: "1.7.21"
+    compile group: 'org.json', name: 'json', version: '20141113'
 }
