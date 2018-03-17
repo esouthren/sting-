@@ -20,7 +20,7 @@ public class sms_listener extends HttpServlet {
             String first_address = "";
             String second_address = "";
             String transport_method = "";
-            String da_json = "";
+            String output_message = "";
 
             int start_of_body = return_text.indexOf("&Body=") + 6;
             int end_of_body = return_text.indexOf("&FromCou");
@@ -43,21 +43,20 @@ public class sms_listener extends HttpServlet {
                         second_address += sms_split_words[i] + " ";
                         i++;
                     }
-                    da_json = google_maps_call.google_directions(first_address, second_address, transport_method);
-                    System.out.println(da_json);
+                    output_message = google_maps_call.google_directions(first_address, second_address, transport_method);
+                    System.out.println(output_message);
                 }
+            }
+            else if (sms_split_words[0].toLowerCase().equals("joke")) {
+                output_message = joke_generator.generate_joke();
             }
 
 
             // Google Maps API Call
 
-
-
-
-
             res.type("application/xml");
             Body body = new Body
-                    .Builder(da_json) // Text to be returned in SMS
+                    .Builder(output_message) // Text to be returned in SMS
                     .build();
             Message sms = new Message
                     .Builder()
