@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 public class sms_listener extends HttpServlet {
 
+    private static String[] insults = {"bitch", "poo", "idiot", "asshole"};
+
     private static String get_directions(String[] sms_split_words) {
         String[] transport_methods = {"walking", "driving", "bicycling", "transit"};
         String first_address = "";
@@ -38,7 +40,7 @@ public class sms_listener extends HttpServlet {
     }
 
     private static String get_translation(String[] sms_split_words){
-        if (len(sms_split_words) < 3){
+        if (sms_split_words.length < 3){
             return "Invalid translation query. Please use syntax: translate <target language> <text to translate>";
         }
         String target_language = sms_split_words[1];
@@ -54,6 +56,29 @@ public class sms_listener extends HttpServlet {
             return google_translate_call.translate(target_language, text_to_translate);
         } catch (Exception ex){
             return "An unknown error occurred: " + ex.getMessage();
+        }
+    }
+
+    private static String get_help(String[] query){
+        if (query.length == 1){
+            return "STING uses the following syntax: [translate|directions|joke|help] ..arguments\n" +
+                    "A translate query looks like: translate <target_language> <text_to_translate>\n" +
+                    "A directions query looks like: directions <travel mode> <origin> to <destination>\n" +
+                    "Message \"joke\" for a joke\n" +
+                    "Message \"help\" to show this help\n" +
+                    "Optionally, pass \"help\", then one of the four options for more detailed information on that option\n";
+        }
+        switch (query[1]){
+            case "translate":
+               return "usage: translate <target_language> <text_to_translate>\nLanguages currently supported are English, French, German, Spanish and Dutch";
+            case "directions":
+               return "usage: directions <travel_mode> <origin> to <destination>\nTravel mode can be walking, driving, bicycling or transit";
+            case "joke":
+                return "Just message \"joke\" for a cracking wheeze";
+            case "help":
+                return "Are you having a laugh?";
+            default:
+                return "What is a \"" + query[1] + "\"? You have stumped STING";
         }
     }
 
@@ -75,6 +100,11 @@ public class sms_listener extends HttpServlet {
             // Return text is the full string of the user's text message
             System.out.println(return_text);
             String sms_split_words[] = return_text.split("\\+");
+
+            if (sms_split_words.length == 0){
+                return get_help(new String[]{"help"});
+            }
+
             if (sms_split_words[0].toLowerCase().equals("directions")) {
                 output_message = get_directions(sms_split_words);
             }
@@ -83,6 +113,13 @@ public class sms_listener extends HttpServlet {
             }
             else if (sms_split_words[0].toLowerCase().equals("translate")) {
                 output_message = get_translation(sms_split_words);
+            } else if (sms_split_words[0].toLowerCase().equals("help")) {
+                output_message = get_help(sms_split_words);
+            }
+            else if (Arrays.asList(insults).contains(sms_split_words[0].toLowerCase())){
+                output_message = "you're a " + sms_split_words[0].toLowerCase();
+            } else{
+                output_message = "STING does not understand you, human. Obey the following instructions or face the consequences\n\n" + get_help(new String[]{"help"});
             }
 
 
