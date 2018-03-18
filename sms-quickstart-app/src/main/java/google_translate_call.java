@@ -45,7 +45,7 @@ public class google_translate_call {
         return "An unknown error occurred";
     }
 
-    private static String text_language_to_google_language(String language){
+    public static String text_language_to_google_language(String language){
 
         switch (language.toLowerCase()){
             case "english": return Language.ENGLISH;

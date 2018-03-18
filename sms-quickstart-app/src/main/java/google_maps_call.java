@@ -28,15 +28,22 @@ public class google_maps_call {
         JSONObject temp=null;
 
         JSONArray listOfRoutes = json_data.getJSONArray("routes");
+        if (listOfRoutes.length() == 0){
+            return "Could not find route from \"" + pointA.replace("+", " ") + "\" to \"" +
+                    pointB.replace("+", " ") + "\". Try being either more or less specific";
+        }
         JSONObject firstRoute = listOfRoutes.getJSONObject(0);
 
         JSONArray listOfLegs = firstRoute.getJSONArray("legs");
         JSONObject firstLeg = listOfLegs.getJSONObject(0);
 
+        String distance = firstLeg.getJSONObject("distance").getString("text");
+        String duration = firstLeg.getJSONObject("duration").getString("text");
+
         JSONArray listOfSteps = firstLeg.getJSONArray("steps");
         int length=listOfSteps.length();
 
-        directionsNicelyFormatted += "** " + modeOfTransport.substring(0, 1).toUpperCase() + modeOfTransport.substring(1) + " Directions **\n\n";
+        directionsNicelyFormatted += "** " + modeOfTransport.substring(0, 1).toUpperCase() + modeOfTransport.substring(1) + " Directions  - " + distance + ", approx " + duration + " **\n\n";
 
         for (int i=0;i<length;i++) {
             // Build SMS string to return to User
