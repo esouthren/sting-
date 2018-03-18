@@ -47,10 +47,13 @@ public class google_translate_call {
     }
 
     private static String text_language_to_google_language(String language){
+
         switch (language.toLowerCase()){
             case "english": return Language.ENGLISH;
             case "french": return Language.FRENCH;
             case "german": return Language.GERMAN;
+            case "dutch": return Language.DUTCH;
+            case "spanish": return Language.SPANISH;
         }
         return "UNKNOWN";
     }

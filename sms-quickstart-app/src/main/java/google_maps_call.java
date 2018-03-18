@@ -36,9 +36,11 @@ public class google_maps_call {
         JSONArray listOfSteps = firstLeg.getJSONArray("steps");
         int length=listOfSteps.length();
 
-        for (int i=0;i<length;i++) {
-            temp = (JSONObject)listOfSteps.get(i);
+        directionsNicelyFormatted += "** " + modeOfTransport.substring(0, 1).toUpperCase() + modeOfTransport.substring(1) + " Directions **\n\n";
 
+        for (int i=0;i<length;i++) {
+            // Build SMS string to return to User
+            temp = (JSONObject)listOfSteps.get(i);
             directionsNicelyFormatted += temp.getString("html_instructions") + ".\n";
         }
 
