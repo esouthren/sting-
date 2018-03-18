@@ -7,8 +7,6 @@ import java.util.Arrays;
 
 public class sms_listener extends HttpServlet {
 
-    private static String[] insults = {"bitch", "poo", "idiot", "asshole"};
-
     private static String get_directions(String[] sms_split_words) {
         String[] transport_methods = {"walking", "driving", "bicycling", "transit"};
         String first_address = "";
@@ -115,9 +113,6 @@ public class sms_listener extends HttpServlet {
                 output_message = get_translation(sms_split_words);
             } else if (sms_split_words[0].toLowerCase().equals("help")) {
                 output_message = get_help(sms_split_words);
-            }
-            else if (Arrays.asList(insults).contains(sms_split_words[0].toLowerCase())){
-                output_message = "you're a " + sms_split_words[0].toLowerCase();
             } else{
                 output_message = "STING does not understand you, human. Obey the following instructions or face the consequences\n\n" + get_help(new String[]{"help"});
             }
