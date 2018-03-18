@@ -24,7 +24,6 @@ public class google_translate_call {
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("key", "AIzaSyAhAIUxt6cR137G24xx6UVZjPrWdtzpLAE"));
         params.add(new BasicNameValuePair("q", text_to_translate));
-        params.add(new BasicNameValuePair("source", "en"));
         params.add(new BasicNameValuePair("target", text_language_to_google_language(target_language)));
         params.add(new BasicNameValuePair("format", "text"));
 
